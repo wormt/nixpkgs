@@ -5,10 +5,10 @@
 mkPulumiPackage rec {
   owner = "pulumi";
   repo = "pulumi-aws-native";
-  version = "0.38.0";
+  version = "1.79.0";
   rev = "v${version}";
-  hash = "sha256-v7jNPCrjtfi9KYD4RhiphMIpV23g/CBV/sKPBkMulu0=";
-  vendorHash = "sha256-Yu9tNakwXWYdrjzI6/MFRzVBhJAEOjsmq9iBAQlR0AI=";
+  hash = "sha256-o4x1BdaQbM7pdGGJLHwJ3skmrlJBW/P4AMAAWbp92Nc=";
+  vendorHash = "sha256-ccDzrFVCbEHEo/7M8EmiV7q1QyggBkCfymEC19KaFfc=";
   cmdGen = "pulumi-gen-aws-native";
   cmdRes = "pulumi-resource-aws-native";
   extraLdflags = [
@@ -19,7 +19,8 @@ mkPulumiPackage rec {
   postConfigure = ''
     pushd ..
 
-    ${cmdGen} schema aws-cloudformation-schema ${version}
+    gzip -nc provider/cmd/${cmdRes}/schema.json > provider/cmd/${cmdRes}/schema.json.gz
+    gzip -nc provider/cmd/${cmdRes}/metadata.json > provider/cmd/${cmdRes}/metadata.json.gz
 
     popd
   '';
