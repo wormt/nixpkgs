@@ -6,10 +6,10 @@
 mkPulumiPackage rec {
   owner = "pulumi";
   repo = "pulumi-kubernetes";
-  version = "4.25.0";
+  version = "4.34.1";
   rev = "v${version}";
-  hash = "sha256-CkNTMeiiM8Q4eIEugmid7IKVHplhOAg8YaANSEFodxE=";
-  vendorHash = "sha256-L4kJ+oKciJO0B05rcs4lbKpcINxC3gmvR0lC+LdSNeo=";
+  hash = "sha256-eXve80Gjfx6tEyWNqUuzfLCe7z4rHRdMOcdkzieeKsM=";
+  vendorHash = "sha256-JmKrUWrzqmvbFY7cy0K6T3tvntDBWT/TS1t3Wl1SHdU=";
   cmdGen = "pulumi-gen-kubernetes";
   cmdRes = "pulumi-resource-kubernetes";
   extraLdflags = [
