@@ -5,23 +5,17 @@
 mkPulumiPackage rec {
   owner = "pulumi";
   repo = "pulumi-command";
-  version = "0.9.0";
+  version = "1.2.1";
   rev = "v${version}";
-  hash = "sha256-VnbtPhMyTZ4Oy+whOK6Itr2vqUagwZUODONL13fjMaU=";
-  vendorHash = "sha256-MBWDEVA29uzHD3B/iPe68ntGjMM1SCTDq/TL+NgMc6c=";
-  cmdGen = "pulumi-gen-command";
+  hash = "sha256-1RXTim8/Bge0NwKNRKhVxWtV1HfCgdfX+9IYJkMjq70=";
+  vendorHash = "sha256-FoGGfRFcH2FaO1n86pPnAN9Z3cTQv5hWEtxpRKgZIk4=";
+  cmdGen = "pulumi-resource-command";
   cmdRes = "pulumi-resource-command";
   extraLdflags = [
     "-X github.com/pulumi/${repo}/provider/pkg/version.Version=v${version}"
   ];
 
-  postConfigure = ''
-    pushd ..
-
-    ${cmdGen} provider/cmd/pulumi-resource-command/schema.json --version ${version}
-
-    popd
-  '';
+  postConfigure = "";
 
   __darwinAllowLocalNetworking = true;
 
