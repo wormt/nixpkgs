@@ -7,6 +7,7 @@
 let
   mkBasePackage =
     {
+      buildGoModule ? buildGoModule,
       pname,
       src,
       version,
@@ -30,7 +31,7 @@ let
         ]
         ++ extraLdflags;
       }
-      // args
+      // lib.removeAttrs args [ "buildGoModule" ]
     );
 
   mkPythonPackage =
@@ -129,6 +130,9 @@ in
   fetchSubmodules ? false,
   pythonArgs ? { },
   postPatch ? "",
+  # Override the Go toolchain for providers requiring a newer Go than the
+  # default `buildGoModule`.
+  go ? null,
   ...
 }@args:
 let
@@ -143,7 +147,10 @@ let
       ;
   };
 
+  buildGoModule' = if go != null then buildGoModule.override { inherit go; } else buildGoModule;
+
   pulumi-gen = mkBasePackage {
+    buildGoModule = buildGoModule';
     inherit
       src
       version
@@ -159,6 +166,7 @@ let
 in
 mkBasePackage (
   {
+    buildGoModule = buildGoModule';
     pname = repo;
     inherit env src;
 
@@ -188,5 +196,5 @@ mkBasePackage (
       // pythonArgs
     );
   }
-  // (lib.removeAttrs args [ "pythonArgs" ])
+  // (lib.removeAttrs args [ "pythonArgs" "go" ])
 )
